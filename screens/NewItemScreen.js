@@ -7,6 +7,10 @@ const NewItemScreen = props => {
     </View>
 };
 
+NewItemScreen.navigationOptions = {
+    headerTitle: 'Add Item'
+};
+
 const styles = StyleSheet.create({});
 
 export default NewItemScreen;
