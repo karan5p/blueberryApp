@@ -1,7 +1,7 @@
 import { ADD_ITEM } from "./items-actions";
 import Item from '../models/item';
 
-const intialState = {
+const initialState = {
     items: []
 };
 

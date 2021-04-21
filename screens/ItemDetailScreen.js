@@ -7,6 +7,12 @@ const ItemDetailScreen = props => {
     </View>
 };
 
+ItemDetailScreen.navigationOptions = navData => {
+    return {
+        headerTitle: navData.navigation.getParam('itemTitle')
+    };
+}
+
 const styles = StyleSheet.create({});
 
 export default ItemDetailScreen;
