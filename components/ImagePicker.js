@@ -1,23 +1,43 @@
-import React from 'react';
-import { View, Button, Image, Text, StyleSheet } from 'react-native'
+import React, { useState } from 'react';
+import { View, Button, Image, Text, StyleSheet, Alert } from 'react-native'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
 import Colours from '../Colours'
 
 const ImgPicker = props => {
-    const verifyPermissions = () => {
-        Permissions.askAsync()
+    const [pickedImage, setPickedImage] = useState();
+
+    //Adding permissions to allow camera working on iOS as well.
+    const verifyPermissions = async () => {
+        const result = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+        if (result.status !== 'granted'){
+            Alert.alert('You need to grant camera permissions to use this app.', [{Text: 'Okay'}]);
+            return false;
+        }
+        return true;
     };
 
-    const takeImageHandler = () => {
-        ImagePicker.launchCameraAsync();
+    const takeImageHandler = async () => {
+        const hasPermission = await verifyPermissions();
+        if (!hasPermission){
+            return;
+        }
+        const image = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,            
+            quality: 0.5
+        });
+
+        setPickedImage(image.uri);
     };
     return(
         <View style = {styles.imagePicker}>
             <View style = {styles.imagePreview}>
-                <Text>No Image Picked Yet</Text>
-                <Image style = {styles.image}/>
+                {!pickedImage ? (
+                    <Text>No Image Picked Yet</Text>
+                ) : (
+                    <Image style = {styles.image} source = {{uri: pickedImage}}/>
+                )}
             </View>
             <Button title= "Take Image" colour ={Colours.primary} onPress = {takeImageHandler}/>
         </View>
