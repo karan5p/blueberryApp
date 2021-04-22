@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import Colours from '../Colours';
 import * as itemsActions from '../store/items-actions';
+import ImagePicker from '../components/ImagePicker';
 
 
 
@@ -30,6 +31,7 @@ const NewItemScreen = props => {
                  onChangeText = {titleChangeHandler} 
                  value = {titleValue} 
                 />
+                <ImagePicker />
                 <Button title="Save Item" colour={Colours.primary} onPress={saveItemHandler}/>
             </View>
         </ScrollView>

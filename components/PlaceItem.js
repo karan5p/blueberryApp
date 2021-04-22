@@ -14,6 +14,7 @@ const PlaceItem = props => {
   );
 };
 
+//styling of the list display
 const styles = StyleSheet.create({
   placeItem: {
     borderBottomColor: '#ccc',
