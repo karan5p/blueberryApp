@@ -7,6 +7,15 @@ import ReduxThunk from 'redux-thunk';
 
 import ItemsNavigator from './navigation/ItemsNavigator';
 import itemsReducer from './store/items-reducer'
+import { init } from './components/database'
+
+init().then(() => {
+  console.log('Initialized Database')
+}).catch(error => {
+  console.log('Database failed to load');
+  console.log(error);
+});
+
 
 const rootReducer = combineReducers({
   items: itemsReducer
