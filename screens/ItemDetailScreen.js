@@ -16,13 +16,7 @@ const ItemDetailScreen = props => {
     const itemId = props.navigation.getParam('itemId');
     const selectedItem = useSelector(state => state.items.items.find(item => item.id === itemId));
 
-    const selectedLocation = {latitude: selectedItem.latitude, longitude: selectedItem.longitude};
-
-    const showMapHandler = () => {
-        props.navigation.navigate('Map', {readonly: true, initialLocation: selectedLocation});
-    };
-
-    
+    const selectedLocation = {latitude: selectedItem.latitude, longitude: selectedItem.longitude}; 
 
     let deleteItemHandler = () => {
       const promise = new Promise((resolve, reject) => {
@@ -54,10 +48,10 @@ const ItemDetailScreen = props => {
             <Image source = {{uri: selectedItem.imageUri}} style = {styles.image}/>
             <View style = {styles.locationContainer}>
                 <View style = {styles.addressContainer}><Text style = {styles.address}>{selectedItem.address}</Text></View>
-                <MapPreview style = {styles.mapPreview} location = {selectedLocation} onPress = {showMapHandler}/>
+                <MapPreview style = {styles.mapPreview} location = {selectedLocation}/>
             </View>
 
-            <Button title="Delete Item" colour={Colours.primary} onPress={deleteItemHandler}/>
+            <Button title="Delete Item" colour={Colours.primary} onPress={deleteItemHandler} style = {styles.deleteButton}/>
 
         </ScrollView>
     );
@@ -73,8 +67,10 @@ const styles = StyleSheet.create({
     image: {
       height: '35%',
       minHeight: 300,
-      width: '100%',
-      backgroundColor: '#ccc'
+      width: '90%',
+      backgroundColor: '#ccc',
+      marginTop: 20,
+      borderRadius: 10 
     },
     locationContainer: {
       marginVertical: 20,
@@ -103,6 +99,9 @@ const styles = StyleSheet.create({
       height: 300,
       borderBottomLeftRadius: 10,
       borderBottomRightRadius: 10
+    },
+    deleteButton: {
+      marginBottom: 10
     }
   });
   
