@@ -24,9 +24,27 @@ export const insertItem = (title, imageUri, address, latitude, longitude) => {
     const promise = new Promise((resolve, reject) => {
         db.transaction((tx) => {        
             tx.executeSql(
-                //questions marks are values to avoid an SQL injection attack if database was online for example instead of local
+                //question marks are values to avoid an SQL injection attack if database was online for example instead of local
              `INSERT INTO items (title, imageUri, address, latitude, longitude) VALUES (?, ?, ?, ?, ?);`, 
              [title, imageUri, address, latitude, longitude],
+             (_, result) => {
+                 resolve(result);   
+             },
+             (_, error) => {
+                reject(error); 
+             }
+            );
+        });
+    });
+    return promise;
+};
+
+export const getItems = () => {
+    const promise = new Promise((resolve, reject) => {
+        db.transaction((tx) => {        
+            tx.executeSql(
+             'SELECT * FROM items', 
+             [],
              (_, result) => {
                  resolve(result);   
              },
