@@ -80,9 +80,11 @@ const styles = StyleSheet.create({
         backgroundColor:'#6C78B8'
     },
     navButtonText: {
+        fontStyle: 'italic',
+        textDecorationLine: 'underline',
         fontSize: 18,
         fontWeight: '500',
-        color: '#2e64e5',
+        color: '#fff',
         marginTop: 20,
       },
     signUp:{
