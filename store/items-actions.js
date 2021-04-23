@@ -36,3 +36,5 @@ export const loadItems = () => {
         }
     };
 };
+
+//delete entryu https://aboutreact.com/example-of-sqlite-database-in-react-native/#DeleteUserjs
