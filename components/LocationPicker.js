@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Button, Text, ActivityIndicator, Alert, StyleSheet } from 'react-native';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -10,6 +10,14 @@ import Colours from '../Colours';
 const LocationPicker = props => {
     const [isFetching, setIsFetching] = useState(false);
     const [pickedLocation, setPickedLocation] = useState();
+
+    const mapPickedLocation = props.navigation.getParam('pickedLocation');
+
+    useEffect(() => {
+        if (mapPickedLocation){
+            setPickedLocation(mapPickedLocation);
+        }
+    }, [mapPickedLocation])
 
 
     //Adding permissions to allow location working on iOS as well.
