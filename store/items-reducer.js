@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
             };
         case ADD_ITEM:
             const newItem = new Item(
-                action.itemData.id.toStrring(), 
+                action.itemData.id.toString(), 
                 action.itemData.title, 
                 action.itemData.image,
                 action.itemData.address,
