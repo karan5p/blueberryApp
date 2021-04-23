@@ -67,6 +67,8 @@ const SigninScreen = ({navigation})=>{
                 </View>
             </ScrollView>
 };
+
+
 const styles = StyleSheet.create({
  
    
