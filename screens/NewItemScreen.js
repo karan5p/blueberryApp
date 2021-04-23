@@ -38,7 +38,7 @@ const NewItemScreen = props => {
                  value = {titleValue} 
                 />
                 <ImagePicker onImageTaken = {imageTakenHandler} />
-                <LocationPicker/>
+                <LocationPicker navigation = {props.navigation}/>
 
                 <Button title="Save Item" colour={Colours.primary} onPress={saveItemHandler}/>
             </View>
