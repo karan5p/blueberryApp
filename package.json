@@ -30,7 +30,8 @@
     "react-navigation-stack": "^2.10.4",
     "react-redux": "^7.2.3",
     "redux-thunk": "^2.3.0",
-    "expo-sqlite": "~8.5.0"
+    "expo-sqlite": "~8.5.0",
+    "expo-location": "~10.0.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
