@@ -5,6 +5,7 @@ import {windowHeight, windowWidth} from '../components/Dimentions';
 import FormButton from '../components/FormButton';
 import { Button, Input, Text } from 'react-native-elements';
 import firebase from '../firebase/fire';
+import NewItemScreen from './NewItemScreen.js';
 const SigninScreen = ({navigation})=>{
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -69,6 +70,9 @@ const SigninScreen = ({navigation})=>{
 };
 
 
+SigninScreen.navigationOptions = {
+    headerTitle: 'Sign In'
+};
 const styles = StyleSheet.create({
  
    
