@@ -4,6 +4,7 @@ import * as FileSystem from 'expo-file-system';
 
 
 export const ADD_ITEM = 'ADD_ITEM';
+import { insertItem } from '../components/database'
 
 export const addItem = (title, image) => {
     return async dispatch => {
@@ -16,11 +17,14 @@ export const addItem = (title, image) => {
                 from: image,
                 to: newPath
             });
+            const databaseResult = await insertItem(title, newPath, 'Placeholder address', 10.5, 10.5);
+            console.log(databaseResult);
+            dispatch({ type: ADD_ITEM, itemData: { id: databaseResult.insertId, title: title, image: newPath} });
         } catch (error){
             console.log(error);
             throw error;
         }
 
-        dispatch({ type: ADD_ITEM, itemData: { title: title, image: newPath} });
+        
     };
 };

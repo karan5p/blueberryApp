@@ -8,7 +8,11 @@ const initialState = {
 export default (state = initialState, action) => {
     switch (action.type){
         case ADD_ITEM:
-            const newItem = new Item(new Date().toString(), action.itemData.title, action.itemData.image);
+            const newItem = new Item(
+                action.itemData.id.toString(), 
+                action.itemData.title, 
+                action.itemData.image
+            );
             return {
                 items: state.items.concat(newItem)
             };
