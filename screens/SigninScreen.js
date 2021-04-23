@@ -1,3 +1,4 @@
+// landing screen that user is met with to then navigated to the main page or signup
 import React, { useState } from 'react';
 import { TouchableOpacity, StyleSheet, View, ScrollView, Image } from 'react-native';
 import FormInput from '../components/FormInput.js';
@@ -6,29 +7,33 @@ import FormButton from '../components/FormButton';
 import { Button, Input, Text } from 'react-native-elements';
 import firebase from '../firebase/fire';
 import NewItemScreen from './NewItemScreen.js';
-const SigninScreen = ({navigation})=>{
+const SigninScreen = ({navigation})=>{ // creating variables and setting them empty
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const signIn = async () => {
+    const signIn = async () => { 
         try {
+            //uses firebase to authenticate and check if there is an account and if not pushes out an error urging signup
             const response = await firebase.auth().signInWithEmailAndPassword(email, password);
             navigation.navigate('Items');
-        } catch (err) {
+        } catch (err) { //validates the email and password field
             setError(err.message);
         }
 
     }
+    //scrollview incase user screen is small
     return <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.container}>
                     <View style={styles.purpleCasing}>
-                        <View style={styles.imageView}>
+                        {/* showing the app image right on top */}
+                        <View style={styles.imageView}> 
                             <Image
                                 source={require('../components/blueberry.png')}
                                 style={styles.logo}
                             />
                         </View>
+                        {/* input fields using the forminput class */}
                         <FormInput
                             label="Email"
                             value={email}
@@ -51,6 +56,7 @@ const SigninScreen = ({navigation})=>{
                               buttonTitle="Sign In"
                          onPress={() => signIn()}
                         />
+                        {/* redirecting to signup screen */}
                      <View style={styles.signUp}>
                         <TouchableOpacity  onPress={() => navigation.navigate('Signup')}>
                         <Text style={styles.navButtonText}>Don't have an account? Sign Up</Text>
@@ -58,7 +64,7 @@ const SigninScreen = ({navigation})=>{
                      </View>
                     </View>
                     
-                  
+                  {/* this is where the errors from above are displayed to user */}
                     {
                         error ?
                             <Text style={{ color: 'red' }}>{error}</Text>
@@ -68,14 +74,12 @@ const SigninScreen = ({navigation})=>{
                 </View>
             </ScrollView>
 };
-
-
+// changing the header title
 SigninScreen.navigationOptions = {
     headerTitle: 'Sign In'
 };
 const styles = StyleSheet.create({
- 
-   
+   //background
     purpleCasing:{
         width: 411,
         height: 500,
@@ -106,6 +110,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    //logo size
     logo: {
         height: 200,
         width: 200,

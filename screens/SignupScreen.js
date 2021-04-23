@@ -1,3 +1,4 @@
+//singup page and then sends to signin page right after successfully registered
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import {View, Text, TouchableOpacity, Platform, ScrollView, Image} from 'react-native';
@@ -7,29 +8,33 @@ import firebase from '../firebase/fire';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 
-const SignupScreen = ({navigation})=>{
+const SignupScreen = ({navigation})=>{// creating variables and setting them empty
     const [email,setEmail]= useState('');
     const [password,setPassword]= useState('');
     const [error,setError]= useState('');
 
     const signUp = async()=>{
         try{
+            //uses firebase to create an account and checks if any duplicates and if the password meets requirements
             firebase.auth().createUserWithEmailAndPassword(email,password);
             navigation.navigate('Signin');
         }
-        catch(err){
+        catch(err){//validates the email and password field
             setError(err.message);
         }
     }
+      //scrollview incase user screen is small
         return <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.container}>
                     <View style={styles.purpleCasing}>
+                          {/* showing the app image right on top */}
                         <View style={styles.imageView}>
                             <Image
                                 source={require('../components/blueberry.png')}
                                 style={styles.logo}
                             />
                         </View>
+                            {/* input fields using the forminput class */}
                         <FormInput label="Email" value={email} onChangeText={setEmail}  placeholderText="Email"
                                 iconType="user"
                                 keyboardType="email-address"
@@ -43,13 +48,14 @@ const SignupScreen = ({navigation})=>{
                          onPress={() => signUp()}
                         />
                      <View style={styles.signIn}>
+                           {/* redirecting to signin screen */}
                         <TouchableOpacity  onPress={()=>navigation.navigate('Signin')}>
                         <Text style={styles.navButtonText}>Already have an account? Sign in</Text>
                         </TouchableOpacity>
                      </View>
                     </View>
                     
-                  
+                     {/* this is where the errors from above are displayed to user */}
                     {
                         error ?
                             <Text style={{ color: 'red' }}>{error}</Text>
@@ -61,12 +67,12 @@ const SignupScreen = ({navigation})=>{
 
 
 };
+// changing the header title
 SignupScreen.navigationOptions = {
     headerTitle: 'Sign Up'
 };
 const styles = StyleSheet.create({
- 
-   
+   //background
     purpleCasing:{
         width: 411,
         height: 500,
@@ -97,6 +103,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    //logo size
     logo: {
         height: 200,
         width: 200,

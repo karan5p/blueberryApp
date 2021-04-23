@@ -1,9 +1,10 @@
 import React from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 import {windowHeight, windowWidth} from '../components/Dimentions';
-
+//importing icons 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
+//input will display an icon then let you input 
 const FormInput = ({labelValue, placeholderText, iconType, ...rest}) => {
   return (
     <View style={styles.inputContainer}>
@@ -23,7 +24,7 @@ const FormInput = ({labelValue, placeholderText, iconType, ...rest}) => {
 };
 
 export default FormInput;
-
+//css and padding to avoid having the text ontop of the icon
 const styles = StyleSheet.create({
   inputContainer: {
     marginTop: 5,
