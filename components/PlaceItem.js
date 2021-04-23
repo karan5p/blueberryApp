@@ -7,8 +7,7 @@ const PlaceItem = props => {
     <TouchableOpacity onPress={props.onSelect} style={styles.placeItem}>
       <Image style={styles.image} source={{ uri: props.image }} />
       <View style={styles.infoContainer}>
-        <Text style={styles.title}>{props.title}</Text>
-        <Text style={styles.address}>{props.address}</Text>
+        <Text style={styles.title}>{props.title}</Text>        
       </View>
     </TouchableOpacity>
   );
@@ -25,12 +24,12 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   image: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
+    width: 200,
+    height: 100,    
     backgroundColor: '#ccc',
     borderColor: Colours.primary,
-    borderWidth: 1
+    borderWidth: 1,
+    borderRadius: 10
   },
   infoContainer: {
     marginLeft: 25,
