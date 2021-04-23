@@ -7,12 +7,17 @@ import ItemsDetailScreen from '../screens/ItemDetailScreen';
 import NewItemScreen from '../screens/NewItemScreen';
 import MapScreen from '../screens/MapScreen';
 import Colors from '../Colours';
+import SignupScreen from '../screens/SignupScreen';
+import SigninScreen from '../screens/SigninScreen';
 
 const ItemsNavigator = createStackNavigator({
+    Signup : SignupScreen,
+    Signin : SigninScreen,
     Items: ItemsListScreen,
     ItemDetail: ItemsDetailScreen,
     NewItem: NewItemScreen,
-    Map: MapScreen
+    Map: MapScreen,
+
 }, {
     defaultNavigationOptions: {
         headerStyle: {
@@ -21,5 +26,6 @@ const ItemsNavigator = createStackNavigator({
         headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
     }
 });
+
 
 export default createAppContainer(ItemsNavigator);
