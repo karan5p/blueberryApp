@@ -4,16 +4,22 @@ import MapView, { Marker }  from 'react-native-maps';
 import Colours from '../Colours';
 
 const MapScreen = props => {
-    const [selectedLocation, setSelectedLocation] = useState();
+    const initialLocation = props.navigation.getParam('initialLocation');
+    const readonly = props.navigation.getParam('readonly');
+    const [selectedLocation, setSelectedLocation] = useState(initialLocation);
 
     const mapRegion = {
-        latitude: 43.642927,
-        longitude: -79.387202,
+        //starting location near CN tower in toronto
+        latitude: initialLocation ? initialLocation.latitude : 43.642927,
+        longitude: initialLocation ? initialLocation.longitude :-79.387202,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
     };
 
     const selectLocationHandler = event => {
+        if (readonly){
+            return;
+        }
         setSelectedLocation({
             latitude: event.nativeEvent.coordinate.latitude,
             longitude: event.nativeEvent.coordinate.longitude
@@ -50,6 +56,10 @@ const MapScreen = props => {
 
 MapScreen.navigationOptions = navData => {
     const saveFunction = navData.navigation.getParam('saveLocation');
+    const readonly = navData.navigation.getParam('readonly');
+    if (readonly){
+        return {};
+    }
     return {
         headerRight: (
             <TouchableOpacity style = {styles.headerButton} onPress = {saveFunction}>

@@ -7,13 +7,20 @@ import Colours from '../Colours';
 
 const ItemDetailScreen = props => {
     const itemId = props.navigation.getParam('itemId');
-    const selectedItem = useSelector(state => state.items.items.find(item => item.id === itemId)) 
+    const selectedItem = useSelector(state => state.items.items.find(item => item.id === itemId));
+
+    const selectedLocation = {latitude: selectedItem.latitude, longitude: selectedItem.longitude};
+
+    const showMapHandler = () => {
+        props.navigation.navigate('Map', {readonly: true, initialLocation: selectedLocation});
+    };
+
     return (
         <ScrollView contentContainerStyle = {{alignItems: 'center'}}>
             <Image source = {{uri: selectedItem.imageUri}} style = {styles.image}/>
             <View style = {styles.locationContainer}>
                 <View style = {styles.addressContainer}><Text style = {styles.address}>{selectedItem.address}</Text></View>
-                <MapPreview style = {styles.MapPreview} location = {{latitude: selectedItem.latitude, longitude: selectedItem.longitude}}/>
+                <MapPreview style = {styles.mapPreview} location = {selectedLocation} onPress = {showMapHandler}/>
             </View>
         </ScrollView>
     );
