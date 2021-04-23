@@ -10,6 +10,7 @@ import ImagePicker from '../components/ImagePicker';
 
 const NewItemScreen = props => {
     const [titleValue, setTitleValue] = useState('');
+    const [selectedImage, setSelectedImage] = useState();
 
     const dispatch = useDispatch();
 
@@ -17,8 +18,12 @@ const NewItemScreen = props => {
         setTitleValue(text);
     }
 
+    const imageTakenHandler = imagePath => {
+        setSelectedImage(imagePath);
+    };
+
     const saveItemHandler = () => {
-        dispatch(itemsActions.addItem(titleValue));
+        dispatch(itemsActions.addItem(titleValue, selectedImage));
         props.navigation.goBack();
     };
 
@@ -31,7 +36,7 @@ const NewItemScreen = props => {
                  onChangeText = {titleChangeHandler} 
                  value = {titleValue} 
                 />
-                <ImagePicker />
+                <ImagePicker onImageTaken = {imageTakenHandler} />
                 <Button title="Save Item" colour={Colours.primary} onPress={saveItemHandler}/>
             </View>
         </ScrollView>

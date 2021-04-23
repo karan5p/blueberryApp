@@ -15,7 +15,7 @@ const ItemsListScreen = props => {
          data = {items}
          keyExtractor= {item => item.id} 
          renderItem = {itemData => (
-          <PlaceItem image = {null} title = {itemData.item.title} address = {null} onSelect = {() => {
+          <PlaceItem image = {itemData.item.imageUri} title = {itemData.item.title} address = {null} onSelect = {() => {
                 props.navigation.navigate('ItemDetail', {
                     itemTitle: itemData.item.title, 
                     itemId: itemData.item.id
