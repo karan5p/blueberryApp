@@ -11,8 +11,8 @@ import SignupScreen from '../screens/SignupScreen';
 import SigninScreen from '../screens/SigninScreen';
 
 const ItemsNavigator = createStackNavigator({
-    Signup : SignupScreen,
     Signin : SigninScreen,
+    Signup : SignupScreen,
     Items: ItemsListScreen,
     ItemDetail: ItemsDetailScreen,
     NewItem: NewItemScreen,
