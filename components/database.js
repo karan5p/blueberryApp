@@ -2,8 +2,9 @@ import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabase('items.db'); //opening the database called items
 
-//Initializing the database at the start to create or 
+//Initializing the database at the start to create or load existing table called items
 export const init = () => {
+    //Creating promises for error checking and async programming
     const promise = new Promise((resolve, reject) => {
         db.transaction((tx) => {        
             tx.executeSql(
@@ -18,9 +19,10 @@ export const init = () => {
             );
         });
     });
-    return promise;    
+    return promise;
 };
 
+//exports database operations to add items to the table
 export const insertItem = (title, imageUri, address, latitude, longitude) => {
     const promise = new Promise((resolve, reject) => {
         db.transaction((tx) => {        
@@ -40,6 +42,7 @@ export const insertItem = (title, imageUri, address, latitude, longitude) => {
     return promise;
 };
 
+//exports database operations to get all the items within the table to display
 export const getItems = () => {
     const promise = new Promise((resolve, reject) => {
         db.transaction((tx) => {        
@@ -58,6 +61,7 @@ export const getItems = () => {
     return promise;
 };
 
+//Attempted to add database functionality for deleting item but could not figure it out
 // export const deleteItem = (id) => {
 //     const promise = new Promise((resolve, reject) => {
 //         db.transaction((tx) => {        

@@ -5,19 +5,24 @@ import * as SQLite from 'expo-sqlite';
 import * as itemsActions from '../store/items-actions';
 import { useDispatch } from 'react-redux';
 
-
-const db = SQLite.openDatabase('items.db');
-
 import MapPreview from '../components/MapPreview';
 import Colours from '../Colours';
 
+//opening database to modify the table
+const db = SQLite.openDatabase('items.db');
+
+//function to define all the requirements for this screen to work.
 const ItemDetailScreen = props => {
-    const dispatch = useDispatch();
+    //attempted to use dispatch for delete but was not successful
+    //const dispatch = useDispatch();
     const itemId = props.navigation.getParam('itemId');
+    //selecting the item by its ID to display proper information
     const selectedItem = useSelector(state => state.items.items.find(item => item.id === itemId));
 
+    //assigning a general location variable to hold both latitude and longitude
     const selectedLocation = {latitude: selectedItem.latitude, longitude: selectedItem.longitude}; 
 
+    //delete item handler that functions but some issues
     let deleteItemHandler = () => {
       const promise = new Promise((resolve, reject) => {
         db.transaction((tx) => {        
@@ -37,6 +42,7 @@ const ItemDetailScreen = props => {
     return promise;
     };
 
+    //attempted to use dispatch to make delete item work but was not successful
     // let deleteItemHandler = () => {
     //   dispatch(itemsActions.deleteItem(selectedItem.id));
     //     props.navigation.goBack();

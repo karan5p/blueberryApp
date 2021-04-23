@@ -7,20 +7,24 @@ import MapPreview from './MapPreview';
 
 import Colours from '../Colours';
 
+//Fuction that will behave like the image picker but with locations instead
 const LocationPicker = props => {
+    //setting variables to hold certain states
     const [isFetching, setIsFetching] = useState(false);
     const [pickedLocation, setPickedLocation] = useState();
 
+    //Aquiring variables from other files with the use of parameters
     const mapPickedLocation = props.navigation.getParam('pickedLocation');
 
     const {onLocationPicked} = props;
 
+    //For sideeffects to affect certain outcomes and render if certain information has been assigned to the variables
     useEffect(() => {
         if (mapPickedLocation){
             setPickedLocation(mapPickedLocation);
             onLocationPicked(mapPickedLocation);
         }
-    }, [mapPickedLocation, onLocationPicked]);
+    }, [mapPickedLocation, onLocationPicked]); //dependencies for useeffect
 
 
     //Adding permissions to allow location working on iOS as well.
@@ -40,9 +44,11 @@ const LocationPicker = props => {
         }
 
         try{
+            //Launches the current location function to assign longitude and latitude of the current location of the device
             setIsFetching(true);
             const location = await Location.getCurrentPositionAsync({timeout: 5000});
             console.log(location);
+            //setting the latitude and longtitude to variables to be used in other files
             setPickedLocation({
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude
@@ -58,6 +64,7 @@ const LocationPicker = props => {
         
     };
 
+    //handler to navigate to mapscreen
     const pickOnMapHandler = () => {
         props.navigation.navigate('Map');
     };

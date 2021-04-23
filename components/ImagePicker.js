@@ -5,7 +5,9 @@ import * as Permissions from 'expo-permissions';
 
 import Colours from '../Colours'
 
+//Fucntion that includes all the requirements to select and image and save it
 const ImgPicker = props => {
+    //variables to hold certain states required for images
     const [pickedImage, setPickedImage] = useState();
 
     //Adding permissions to allow camera working on iOS as well.
@@ -18,6 +20,7 @@ const ImgPicker = props => {
         return true;
     };
 
+    //Handler to launch the camera once permissions have been given. Function is done asynchronously
     const takeImageHandler = async () => {
         const hasPermission = await verifyPermissions();
         if (!hasPermission){
@@ -29,10 +32,12 @@ const ImgPicker = props => {
             quality: 0.5
         });
 
+        //settings the image uri to variable to be used later and elsewhere in the project
         setPickedImage(image.uri);
         props.onImageTaken(image.uri);
     };
     return(
+        //View that will hold all the things regarding the image capture in the add item screen
         <View style = {styles.imagePicker}>
             <View style = {styles.imagePreview}>
                 {!pickedImage ? (

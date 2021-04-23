@@ -9,6 +9,7 @@ import ItemsNavigator from './navigation/ItemsNavigator';
 import itemsReducer from './store/items-reducer'
 import { init } from './components/database'
 
+//initializing the database at the start of the app
 init().then(() => {
   console.log('Initialized Database')
 }).catch(error => {
@@ -16,7 +17,7 @@ init().then(() => {
   console.log(error);
 });
 
-
+//implementing reduce file using REDUX and REDUX thunk
 const rootReducer = combineReducers({
   items: itemsReducer
 });

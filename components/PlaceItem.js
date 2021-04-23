@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Colours from '../Colours';
 
+//File to design how each item in the list will look like
 const PlaceItem = props => {
   return (
     <TouchableOpacity onPress={props.onSelect} style={styles.placeItem}>

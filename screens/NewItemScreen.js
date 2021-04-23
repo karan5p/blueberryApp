@@ -9,11 +9,14 @@ import LocationPicker from '../components/LocationPicker';
 
 
 
+//File to contain everything regarding the new item screen
 const NewItemScreen = props => {
+    //creating variables to hold states for different things on the page
     const [titleValue, setTitleValue] = useState('');
     const [selectedImage, setSelectedImage] = useState();
     const [selectedLocation, setSelectedLocation] = useState();
 
+    //using dispatch from REDUX to trigger a state change
     const dispatch = useDispatch();
 
     const titleChangeHandler = text => {
@@ -29,6 +32,7 @@ const NewItemScreen = props => {
         //console.log(location); checking if location data is passed
     }, []);
 
+    //dispatching the item information to the items action page to store in database table
     const saveItemHandler = () => {
         dispatch(itemsActions.addItem(titleValue, selectedImage, selectedLocation));
         props.navigation.goBack();

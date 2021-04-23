@@ -10,6 +10,7 @@ import Colors from '../Colours';
 import SignupScreen from '../screens/SignupScreen';
 import SigninScreen from '../screens/SigninScreen';
 
+//Naviugator file to hold all the paths for the app fucntionality using a stack navigator
 const ItemsNavigator = createStackNavigator({
     Signin : SigninScreen,
     Signup : SignupScreen,

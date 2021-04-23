@@ -6,13 +6,14 @@ import HeaderButton from '../components/HeaderButton';
 import PlaceItem from '../components/PlaceItem';
 import * as itemsActions from '../store/items-actions'
 import Colours from '../Colours';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 
 
+//Page for displaying all the items in a flatlist
 const ItemsListScreen = props => {
     const items = useSelector(state => state.items.items);
     const dispatch = useDispatch();
 
+    //using effect to render items according to database table
     useEffect(() => {
         dispatch(itemsActions.loadItems());
     }, [dispatch]);

@@ -3,11 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native
 import MapView, { Marker }  from 'react-native-maps';
 import Colours from '../Colours';
 
+//file that will handle all things related to previewing and working with maps
 const MapScreen = props => {
+    //passing parameters from other files to use them in this one
     const initialLocation = props.navigation.getParam('initialLocation');
     const readonly = props.navigation.getParam('readonly');
     const [selectedLocation, setSelectedLocation] = useState(initialLocation);
 
+    //mapping a starting position for when the map is opened
     const mapRegion = {
         //starting location near CN tower in toronto
         latitude: initialLocation ? initialLocation.latitude : 43.642927,
@@ -16,6 +19,7 @@ const MapScreen = props => {
         longitudeDelta: 0.0421
     };
 
+    //assigning the selected location to variables for use in other files
     const selectLocationHandler = event => {
         if (readonly){
             return;
@@ -28,6 +32,8 @@ const MapScreen = props => {
         //console.log(event); to check for which data comes up when tapping on the map screen
     };
 
+    
+    //using callback to hold a certain state of the function so when it renders, it will remain in the same state
     const savePickedLocationHandler = useCallback(() => {
         if (!selectedLocation){
             return;
@@ -35,12 +41,15 @@ const MapScreen = props => {
         props.navigation.navigate('NewItem', {pickedLocation: selectedLocation});
     }, [selectedLocation]);
 
+    //use effect to render the screen with new information
     useEffect(() => {
         props.navigation.setParams({saveLocation: savePickedLocationHandler})
     }, [savePickedLocationHandler]);
 
+    //setting variable to hold coordinates for a marker for map
     let markerCoordinates;
 
+    //setting the selected locations longitude and latitude to the marker
     if (selectedLocation) {
         markerCoordinates = {
             latitude: selectedLocation.latitude,
