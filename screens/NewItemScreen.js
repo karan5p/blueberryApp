@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { ScrollView, View, Button, Text, TextInput, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 
@@ -12,6 +12,7 @@ import LocationPicker from '../components/LocationPicker';
 const NewItemScreen = props => {
     const [titleValue, setTitleValue] = useState('');
     const [selectedImage, setSelectedImage] = useState();
+    const [selectedLocation, setSelectedLocation] = useState();
 
     const dispatch = useDispatch();
 
@@ -23,8 +24,13 @@ const NewItemScreen = props => {
         setSelectedImage(imagePath);
     };
 
+    const locationPickedHandler = useCallback(location => {
+        setSelectedLocation(location);
+        //console.log(location); checking if location data is passed
+    }, []);
+
     const saveItemHandler = () => {
-        dispatch(itemsActions.addItem(titleValue, selectedImage));
+        dispatch(itemsActions.addItem(titleValue, selectedImage, selectedLocation));
         props.navigation.goBack();
     };
 
@@ -38,7 +44,7 @@ const NewItemScreen = props => {
                  value = {titleValue} 
                 />
                 <ImagePicker onImageTaken = {imageTakenHandler} />
-                <LocationPicker navigation = {props.navigation}/>
+                <LocationPicker navigation = {props.navigation} onLocationPicked = {locationPickedHandler}/>
 
                 <Button title="Save Item" colour={Colours.primary} onPress={saveItemHandler}/>
             </View>

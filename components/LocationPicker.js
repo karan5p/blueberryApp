@@ -13,11 +13,14 @@ const LocationPicker = props => {
 
     const mapPickedLocation = props.navigation.getParam('pickedLocation');
 
+    const {onLocationPicked} = props;
+
     useEffect(() => {
         if (mapPickedLocation){
             setPickedLocation(mapPickedLocation);
+            onLocationPicked(mapPickedLocation);
         }
-    }, [mapPickedLocation])
+    }, [mapPickedLocation, onLocationPicked]);
 
 
     //Adding permissions to allow location working on iOS as well.
@@ -44,8 +47,12 @@ const LocationPicker = props => {
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude
             });
+            props.onLocationPicked({
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude
+            });
         } catch(error){
-            Alert.alert('Could not get location', 'Please try again late or pick a location on the map.', [{text: 'Okay'}]);
+            Alert.alert('Could not get location', 'Please try again later or pick a location on the map.', [{text: 'Okay'}]);
         }
         setIsFetching(false);
         

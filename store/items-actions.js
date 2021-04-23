@@ -1,11 +1,20 @@
 import * as FileSystem from 'expo-file-system';
 import { insertItem, getItems } from '../components/database'
+import KEYS from '../keys';
 
 export const ADD_ITEM = 'ADD_ITEM';
 export const SET_ITEMS = 'SET_ITEMS';
 
-export const addItem = (title, image) => {
+export const addItem = (title, image, location) => {
     return async dispatch => {
+        //using google reverse geocoding to get address based off of longitude and latitude 
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.latitude},${location.longitude}&key=${KEYS.googleMapsApiKey}`);
+
+        const responseData = await response.json();
+        //console.log(responseData); Checking if the json data is fetched correctly
+
+        const address = responseData.results[0].formatted_address;
+        
         //converts a long string into parts using / as the target. Array of string segments will be made and retrieve the last segment
         const fileName = image.split('/').pop();
         const newPath = FileSystem.documentDirectory + fileName;
@@ -15,9 +24,12 @@ export const addItem = (title, image) => {
                 from: image,
                 to: newPath
             });
-            const databaseResult = await insertItem(title, newPath, 'Placeholder address', 10.5, 10.5);
+            const databaseResult = await insertItem(title, newPath, address, location.latitude, location.longitude);
             console.log(databaseResult);
-            dispatch({ type: ADD_ITEM, itemData: { id: databaseResult.insertId, title: title, image: newPath} });
+            dispatch({ type: ADD_ITEM, itemData: { id: databaseResult.insertId, title: title, image: newPath, address: address, coordinates: {
+                latitude: location.latitude,
+                longitude: location.longitude
+            }} });
         } catch (error){
             console.log(error);
             throw error;
