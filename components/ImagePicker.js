@@ -41,7 +41,7 @@ const ImgPicker = props => {
                     <Image style = {styles.image} source = {{uri: pickedImage}}/>
                 )}
             </View>
-            <Button title= "Take Image" colour ={Colours.primary} onPress = {takeImageHandler}/>
+            <Button title= "Take Image" color ={Colours.primary} onPress = {takeImageHandler}/>
         </View>
     );
 };

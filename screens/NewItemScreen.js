@@ -37,7 +37,7 @@ const NewItemScreen = props => {
     return(
         <ScrollView>
             <View style = {styles.form}>
-                <Text style = {styles.label}>Title</Text>
+                <Text style = {styles.label}>Item Name</Text>
                 <TextInput 
                  style = {styles.textInput}
                  onChangeText = {titleChangeHandler} 
@@ -46,7 +46,7 @@ const NewItemScreen = props => {
                 <ImagePicker onImageTaken = {imageTakenHandler} />
                 <LocationPicker navigation = {props.navigation} onLocationPicked = {locationPickedHandler}/>
 
-                <Button title="Save Item" colour={Colours.primary} onPress={saveItemHandler}/>
+                <Button title="Save Item" color={Colours.primary} onPress={saveItemHandler}/>
             </View>
         </ScrollView>
     );
