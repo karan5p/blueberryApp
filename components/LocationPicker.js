@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Button, Text, ActivityIndicator, Alert, StyleSheet } from 'react-native';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
+import MapPreview from './MapPreview';
 
 
 import Colours from '../Colours';
@@ -43,9 +44,9 @@ const LocationPicker = props => {
     };
 
     return <View style = {styles.locationPicker}>
-        <View style = {styles.mapPreview}>
-            {isFetching ? <ActivityIndicator size = "large" color = {Colours.primary} /> : <Text>No Location has been chosen yet!</Text>}
-        </View>
+        <MapPreview style = {styles.mapPreview} location = {pickedLocation}>
+            {isFetching ? (<ActivityIndicator size = "large" color = {Colours.primary} />) : (<Text>No Location has been chosen yet!</Text>)}
+        </MapPreview>        
         <Button title = "Get User Location" color = {Colours.primary} onPress = {getLocationHandler}/>
     </View>
 };
@@ -60,10 +61,8 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 150,
         borderColor: '#ccc',
-        borderWidth: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
+        borderWidth: 1
+        }
 });
 
 export default LocationPicker;
