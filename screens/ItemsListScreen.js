@@ -6,6 +6,7 @@ import HeaderButton from '../components/HeaderButton';
 import PlaceItem from '../components/PlaceItem';
 import * as itemsActions from '../store/items-actions'
 import Colours from '../Colours';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 
 const ItemsListScreen = props => {
@@ -34,7 +35,7 @@ const ItemsListScreen = props => {
                 }}
             /> 
             )} 
-            />
+            />            
             <Button title="Add Item" color={Colours.primary} onPress={navigateNewItemsHandler}/>
         </View>
     );

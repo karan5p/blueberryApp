@@ -1,7 +1,8 @@
 import * as SQLite from 'expo-sqlite';
 
-const db = SQLite.openDatabase('items.db');
+const db = SQLite.openDatabase('items.db'); //opening the database called items
 
+//Initializing the database at the start to create or 
 export const init = () => {
     const promise = new Promise((resolve, reject) => {
         db.transaction((tx) => {        
