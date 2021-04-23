@@ -1,4 +1,4 @@
-import { ADD_ITEM, SET_ITEMS } from "./items-actions";
+import { ADD_ITEM, SET_ITEMS, DELETE_ITEM } from "./items-actions";
 import Item from '../models/item';
 
 const initialState = {
@@ -25,7 +25,12 @@ export default (state = initialState, action) => {
             return {
                 items: state.items.concat(newItem)
             };
-
+        // case DELETE_ITEM:
+        //     return {
+        //         items: action.items.map(
+        //             item => new Item(item.id.toString(), item.title, item.imageUri, item.address, item.latitude, item.longitude)
+        //         )
+        //     };
         default:
             return state;
     }

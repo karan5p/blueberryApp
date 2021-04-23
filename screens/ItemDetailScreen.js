@@ -1,11 +1,18 @@
 import React from 'react';
-import { ScrollView, Image, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, Image, View, Text, StyleSheet, Button } from 'react-native';
 import { useSelector } from 'react-redux';
+import * as SQLite from 'expo-sqlite';
+import * as itemsActions from '../store/items-actions';
+import { useDispatch } from 'react-redux';
+
+
+const db = SQLite.openDatabase('items.db');
 
 import MapPreview from '../components/MapPreview';
 import Colours from '../Colours';
 
 const ItemDetailScreen = props => {
+    const dispatch = useDispatch();
     const itemId = props.navigation.getParam('itemId');
     const selectedItem = useSelector(state => state.items.items.find(item => item.id === itemId));
 
@@ -15,6 +22,33 @@ const ItemDetailScreen = props => {
         props.navigation.navigate('Map', {readonly: true, initialLocation: selectedLocation});
     };
 
+    
+
+    let deleteItemHandler = () => {
+      const promise = new Promise((resolve, reject) => {
+        db.transaction((tx) => {        
+            tx.executeSql(
+            `DELETE FROM  items where id=${selectedItem.id};`, 
+             [],
+             () => {
+                 resolve();   
+             },
+             (_, error) => {
+                reject(error); 
+             }
+            );
+        });
+    });
+    props.navigation.navigate('Signin');
+    return promise;
+    };
+
+    // let deleteItemHandler = () => {
+    //   dispatch(itemsActions.deleteItem(selectedItem.id));
+    //     props.navigation.goBack();
+    // };
+        
+
     return (
         <ScrollView contentContainerStyle = {{alignItems: 'center'}}>
             <Image source = {{uri: selectedItem.imageUri}} style = {styles.image}/>
@@ -22,6 +56,9 @@ const ItemDetailScreen = props => {
                 <View style = {styles.addressContainer}><Text style = {styles.address}>{selectedItem.address}</Text></View>
                 <MapPreview style = {styles.mapPreview} location = {selectedLocation} onPress = {showMapHandler}/>
             </View>
+
+            <Button title="Delete Item" colour={Colours.primary} onPress={deleteItemHandler}/>
+
         </ScrollView>
     );
 };

@@ -4,6 +4,7 @@ import KEYS from '../keys';
 
 export const ADD_ITEM = 'ADD_ITEM';
 export const SET_ITEMS = 'SET_ITEMS';
+export const DELETE_ITEM = 'DELETE_ITEM';
 
 export const addItem = (title, image, location) => {
     return async dispatch => {
@@ -49,4 +50,14 @@ export const loadItems = () => {
     };
 };
 
-//delete entryu https://aboutreact.com/example-of-sqlite-database-in-react-native/#DeleteUserjs
+// export const deleteItem = (id) => {
+//     return async dispatch => {
+//         try{
+//             const databaseResult = await deleteItem(id);
+//             console.log(databaseResult);
+//             dispatch({type: SET_ITEMS, items: databaseResult.rows._array});
+//         } catch (error){
+//             throw error;
+//         }
+//     };
+// };

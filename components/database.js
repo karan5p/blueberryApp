@@ -56,3 +56,24 @@ export const getItems = () => {
     });
     return promise;
 };
+
+// export const deleteItem = (id) => {
+//     const promise = new Promise((resolve, reject) => {
+//         db.transaction((tx) => {        
+//             tx.executeSql(
+//             `DELETE FROM  items where id=${id};`, 
+//              [],
+//              () => {
+//                  resolve();   
+//              },
+//              (_, error) => {
+//                 reject(error); 
+//              }
+//             );
+//         });
+//     });    
+//     return promise;
+// };
+
+
+
